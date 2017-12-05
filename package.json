@@ -1,0 +1,70 @@
+{
+  "name": "@mbamobi/mba_auto_complete",
+  "version": "0.0.1",
+  "homepage": "mbamobi.com.br",
+  "typings": "dist/esm/index.d.ts",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "npm run clean && npm run build:umd && npm run build:esm",
+    "build:qa": "npm run lint && npm run build && npm run copy-scss",
+    "build:esm": "ngc -p tsconfig-esm.json",
+    "build:test": "ngc -p tsconfig-test.json",
+    "build:umd": "ngc",
+    "copy-scss": "copyfiles src/components/auto-complete/*.scss -u 1 dist/esm/ && copyfiles src/components/auto-complete/*.scss -u 1 dist/umd/",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "commit": "git-cz",
+    "clean": "rimraf ./dist",
+    "cover": "nyc report --reporter=lcov npm test",
+    "doc": "typedoc --tsconfig tsconfig-esm.json --options typedoc.json src/",
+    "gh:release": "node ./scripts/git-release",
+    "jasmine": "jasmine JASMINE_CONFIG_PATH=test/jasmine-config.json",
+    "lint": "tslint -c ./tslint.json --project ./tsconfig-esm.json",
+    "nightly": "npm run build:qa && node ./scripts/publish-nightly",
+    "prepush": "npm run lint",
+    "package:json": "node ./scripts/package-publish",
+    "publishPackage": "npm run build:qa && npm run changelog &&  npm run package:json --prepare && npm publish && npm run package:json --restore",
+    "test": "npm run clean && npm run build:test && npm run jasmine"
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "devDependencies": {
+    "@angular/common": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
+    "@angular/forms": "5.0.0",
+    "@angular/http": "5.0.0",
+    "@angular/platform-browser": "5.0.0",
+    "@angular/platform-browser-dynamic": "5.0.0",
+    "ionic-angular": "3.9.2",
+    "ionicons": "3.0.0",
+    "rxjs": "5.5.2",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.18",
+    "@ionic/app-scripts": "3.1.0",
+    "typescript": "2.4.2"
+  },
+  "peerDependencies": {
+    "@angular/core": "5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbamobi/mba_auto_complete.git"
+  },
+  "keywords": [
+    "ionic",
+    "angular",
+    "autocomplete component"
+  ],
+  "author": "MBA <felipe.araujo@mbamobi.com.br>",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/mbamobi/mba_auto_complete/issues"
+  },
+  "description": "Autocomplete component for ionic2"
+}
