@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component, Input, Output, EventEmitter, TemplateRef, ViewChild,
+    AfterViewChecked
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs/util/noop';
 import {Observable, Subject} from 'rxjs';
@@ -27,7 +30,7 @@ const defaultOpts = {
     {provide: NG_VALUE_ACCESSOR, useExisting: AutoCompleteComponent, multi: true}
   ]
 })
-export class AutoCompleteComponent implements ControlValueAccessor {
+export class AutoCompleteComponent implements ControlValueAccessor, AfterViewChecked {
 
   @Input() public dataProvider: any;
   @Input() public options: any;
@@ -51,10 +54,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   private onChangeCallback: (_: any) => void = noop;
   public suggestions:  any[];
   public formValue: any;
-  
+
   public get showList(): boolean {
     return this._showList;
   }
+
   public set showList(value: boolean) {
     if (this._showList === value) {
       return;
@@ -108,7 +112,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.onChangeCallback(this.formValue);
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     if (this.showListChanged) {
       this.showListChanged = false;
       this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
@@ -192,7 +196,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     // emit selection event
     this.updateModel();
 
-    if(this.hideListOnSelection) {
+    if (this.hideListOnSelection) {
       this.hideItemList();
     }
 
@@ -236,7 +240,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    /**
    * clear current input value
    */
-  public clearValue(hideItemList: boolean = false) {
+  public clearValue(hideItemList = false) {
     this.keyword = '';
     this.selection = null;
     this.formValue = null;

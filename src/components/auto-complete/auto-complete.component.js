@@ -218,18 +218,20 @@ var AutoCompleteComponent = (function () {
     AutoCompleteComponent.prototype.onBlur = function () {
         this.autoBlur.emit();
     };
-    /**
-     * handle document click
-     * @param event
-     */
-    AutoCompleteComponent.prototype.documentClickHandler = function (event) {
-        if ((this.searchbarElem
-            && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
-            ||
-                (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))) {
-            this.hideItemList();
-        }
-    };
+    // /**
+    //  * handle document click
+    //  * @param event
+    //  */
+    // @HostListener('document:click', ['$event'])
+    // private documentClickHandler(event): any {
+    //   if ((this.searchbarElem
+    //     && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
+    //     ||
+    //     (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+    //   ) {
+    //     this.hideItemList();
+    //   }
+    // }
     AutoCompleteComponent.prototype.getFormValue = function (selection) {
         if (selection == null) {
             return null;
@@ -305,9 +307,6 @@ var AutoCompleteComponent = (function () {
     __decorate([
         core_1.ViewChild('inputElem')
     ], AutoCompleteComponent.prototype, "inputElem", void 0);
-    __decorate([
-        core_1.HostListener('document:click', ['$event'])
-    ], AutoCompleteComponent.prototype, "documentClickHandler", null);
     AutoCompleteComponent = AutoCompleteComponent_1 = __decorate([
         core_1.Component({
             selector: 'ion-auto-complete',
