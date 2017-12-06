@@ -1,5 +1,10 @@
 # Ionic2-auto-complete
 
+This component was a fork from [https://github.com/kadoshms/ionic2-autocomplete].
+
+Unfortunately the component referenced above was not updated to angular 5. That's why 
+we forked the project. 
+
 This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
